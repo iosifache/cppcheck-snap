@@ -1,0 +1,52 @@
+name: cppcheck
+adopt-info: cppcheck
+version: 2.13.99
+base: core22
+grade: stable
+confinement: strict
+architectures:
+  - build-on: [amd64]
+  - build-on: [arm64]
+parts:
+  cppcheck:
+    source-type: git
+    source: https://github.com/danmar/cppcheck
+    plugin: cmake
+    build-packages:
+      - libpcre3
+      - libpcre3-dev
+    cmake-parameters:
+      - -DHAVE_RULES=ON
+      - -DUSE_MATCHCOMPILER=ON
+      - -DFILESDIR=/snap/cppcheck/current/usr/local/share/rules
+    override-build: |
+       craftctl default
+       
+       # Set the version
+       version="$(cat $SNAPCRAFT_PART_SRC/cli/main.cpp| grep -E '\* @version .*' | grep -E -o '([0-9\.]+)')"
+       craftctl set version="$version"
+       
+       # Copy the rules
+       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/rules/cfg
+       cp -r $SNAPCRAFT_PART_SRC/cfg/*.cfg $SNAPCRAFT_PART_INSTALL/usr/local/share/rules/cfg/
+apps:
+  cppcheck:
+    command: usr/local/bin/cppcheck
+    plugs:
+      - home
+title: Cppcheck
+summary: Vulnerability scanner for project's dependencies
+description: |
+  Cppcheck is a static analysis tool for discovering bugs in C and C++ 
+  codebases, even when a non-standard syntax is used.
+
+  By implementing coding standards such as Mistra C 2012 and providing 
+  extensibility with custom rules, it detects dangerous coding constructs such 
+  as buffer overflows, NULL pointer dereferences, and divisions by zero. At the 
+  same time, Cppcheck tries to minimise the false positive rates.
+icon: images/icon.png
+issues:
+  - https://github.com/iosifache/cppcheck-snap/issues
+  - https://github.com/danmar/cppcheck/issues
+license: GPL-3.0
+website: https://github.com/iosifache/cppcheck-snap
