@@ -35,7 +35,7 @@ apps:
     plugs:
       - home
 title: Cppcheck
-summary: Vulnerability scanner for project's dependencies
+summary: C/C++ static code analyser
 description: |
   Cppcheck is a static analysis tool for discovering bugs in C and C++ 
   codebases, even when a non-standard syntax is used.
