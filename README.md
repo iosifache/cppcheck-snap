@@ -1,6 +1,6 @@
 <p align="center">
     <a href="http://cppcheck.sourceforge.io">
-        <img src="images/logo.png" height="100" alt="Cppcheck's logo"/>
+        <img src="images/icon.png" height="100" alt="Cppcheck's logo"/>
     </a>
 </p>
 <h2 align="center">C/C++ static code anayser</h2>
