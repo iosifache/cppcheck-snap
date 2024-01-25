@@ -21,7 +21,7 @@ parts:
       - libpcre3-dev
     cmake-parameters:
       - -DHAVE_RULES=ON
-      - -DUSE_MATCHCOMPILER=ON
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - -DUSE_BOOST=On
       - -DFILESDIR=/snap/cppcheck/current/usr/local/share/rules
     override-build: |
